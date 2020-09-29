@@ -78,7 +78,7 @@ const deleteTempDirContens = async (folder: string) => {
 };
 
 const handleTempDirNotEmpty = async (dirName: string, error: any) => {
-  let ans = await waitForInput(
+  const ans = await waitForInput(
     colors.bold(
       `▶️▶️ Directory not empty. Do you wish to delete the contents of the directory at ${tempDir}${dirName}? [Y/n]: `,
     ),
@@ -196,7 +196,7 @@ const gitCheckoutMaster = async () => {
 };
 
 const getRemoteUrl = async () => {
-  let url: string = '';
+  let url = '';
   await execute('git config --get remote.origin.url')
     .then((res) => {
       url = res.stdout;

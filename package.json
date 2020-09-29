@@ -8,8 +8,21 @@
     "start": "npm run build && node dist/server.js",
     "prod": "node server.js",
     "build_prod": "tsc -p . && ts-node util/prod-env.ts production && npx prettier --write ./production/",
+    "build_heroku_prod": "rsync -av --progress production/ heroku-prod/ --exclude .git",
+    "deploy:heroku": "npm run build_prod && npm run build_heroku_prod && ts-node util/deploy-heroku.ts",
+    "git:deploy_heroku": "git subtree push --prefix heroku-prod heroku master",
+    "git:create_prod_submodule": "ts-node util/git-submodules.ts",
     "build_webpacked_prod": "npm run build_prod && webpack -p",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "lint": "eslint ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "engines": {
+    "node": "12.x"
   },
   "repository": {
     "type": "git",
@@ -29,15 +42,21 @@
   },
   "homepage": "https://github.com/magluf/node-ts#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.9.27"
+    "path": "^0.12.7",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
-    "@types/mongodb": "^3.5.25",
-    "@types/mongoose": "^5.7.34",
     "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
     "colors": "^1.4.0",
+    "eslint": "^7.10.0",
+    "husky": "^4.3.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.2",
