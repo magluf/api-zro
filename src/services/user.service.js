@@ -22,8 +22,6 @@ class UserService {
       const user = await database.User.findOne({
         where: { id: Number(id) },
       });
-      console.log('UserService -> getUser -> user', user);
-      console.log('UserService -> getUser -> user', user.dataValues);
       return user;
     } catch (error) {
       throw error;
