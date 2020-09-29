@@ -16,27 +16,41 @@ const parentDir = __dirname.split('util')[0];
 // }
 
 const checkForUncommitedChanges = async () => {
-  console.log(colors.bold('▶️▶️ Checking if there are uncommited changes in current working tree...'));
+  console.log(
+    colors.bold(
+      '▶️▶️ Checking if there are uncommited changes in current working tree...',
+    ),
+  );
   await execute('git status --porcelain')
     .then((res) => {
       if (res.stdout !== '') {
-        console.log(`❗️ There are uncommited changes:\n\n${colors.bold(res.stdout)}`.red);
-        console.log(`❗️ Commit the changes before attempting to create submodules.`.red);
+        console.log(
+          `❗️ There are uncommited changes:\n\n${colors.bold(res.stdout)}`.red,
+        );
+        console.log(
+          `❗️ Commit the changes before attempting to create submodules.`.red,
+        );
         throw 'Working tree not clean';
       }
       console.log('✔ No uncommited changes.\n'.green);
     })
     .catch((err) => {
       console.log('checkForUncommitedChanges -> err', err);
-      console.log(`❗️ Error checking for uncommited changes: ${colors.bold(err.stderr ? err.stderr : err)}`.red);
+      console.log(
+        `❗️ Error checking for uncommited changes: ${colors.bold(
+          err.stderr ? err.stderr : err,
+        )}`.red,
+      );
       throw err;
     });
 };
 
 const generateProductionFiles = async () => {
   console.log(colors.bold('▶️▶️ Generating production files...'));
-  await execute('npm run build_prod')
-    .then(() => console.log('✔ Production files generated successfully.\n'.green))
+  await execute('npm run build:prod')
+    .then(() =>
+      console.log('✔ Production files generated successfully.\n'.green),
+    )
     .catch((err) => {
       console.log('❗️ Error generating production files.\n'.red);
       throw err;
@@ -84,12 +98,18 @@ const handleTempDirNotEmpty = async (dirName: string, error: any) => {
     ),
   );
   if (ans === '' || ans === 'yes' || ans === 'y' || ans === 'Y') {
-    console.log(colors.bold(`▶️▶️ Deleting ${tempDir}${dirName} contents...\n`));
+    console.log(
+      colors.bold(`▶️▶️ Deleting ${tempDir}${dirName} contents...\n`),
+    );
     await deleteTempDirContens(dirName);
 
     await moveFiles(`${parentDir}${dirName}`, tempDir)
       .then(() =>
-        console.log(`✔ Temporary dir for ${dirName} files at: ${colors.bold(`${tempDir}${dirName}\n`)}`.green),
+        console.log(
+          `✔ Temporary dir for ${dirName} files at: ${colors.bold(
+            `${tempDir}${dirName}\n`,
+          )}`.green,
+        ),
       )
       .catch((e) => {
         throw e;
@@ -100,7 +120,9 @@ const handleTempDirNotEmpty = async (dirName: string, error: any) => {
 };
 
 const createGitSymbolicRef = async (name: string) => {
-  console.log(colors.bold(`▶️▶️ Creating git symbolic ref for ${colors.bold(name)}...`));
+  console.log(
+    colors.bold(`▶️▶️ Creating git symbolic ref for ${colors.bold(name)}...`),
+  );
   return await execute(`git symbolic-ref HEAD refs/heads/${name}`);
 };
 
@@ -129,13 +151,20 @@ const gitPushOrphanBranch = async (name: string) => {
 const addProductionFilesToOrphanBranch = async (name: string) => {
   console.log(colors.bold(`▶️▶️ Creating orphan branch for ${name}...`));
   await gitAddAll()
-    .then(async () => await gitCommit(`Adding ${name} content to the orphan branch '${name}'`))
+    .then(
+      async () =>
+        await gitCommit(
+          `Adding ${name} content to the orphan branch '${name}'`,
+        ),
+    )
     .then(async () => await gitPushOrphanBranch(name))
     .then(() => {
       console.log(`✔ New orphan branch pushed to origin remote.\n`.green);
     })
     .catch((err) => {
-      console.log(`❗️ Error creating orphan branch: ${colors.bold(err.stderr)}`.red);
+      console.log(
+        `❗️ Error creating orphan branch: ${colors.bold(err.stderr)}`.red,
+      );
       throw err;
     });
 };
@@ -145,27 +174,53 @@ const createCleanOrphanBranch = async () => {
   await generateProductionFiles();
 
   await createGitSymbolicRef('production')
-    .then(() => console.log(`✔ Symbolic ref for production created successfully.\n`.green))
+    .then(() =>
+      console.log(
+        `✔ Symbolic ref for production created successfully.\n`.green,
+      ),
+    )
     .catch((err) => {
-      console.log(`❗️ Error creating symbolic ref: ${colors.bold(err.stderr)}`.red);
+      console.log(
+        `❗️ Error creating symbolic ref: ${colors.bold(err.stderr)}`.red,
+      );
       throw err;
     });
 
   await deleteGitIndex()
     .then(() => console.log(`✔ .git/index removed.\n`.green))
     .catch((err) => {
-      console.log(`❗️ Error deleting .git/index: ${colors.bold(err.stderr)}`.red);
+      console.log(
+        `❗️ Error deleting .git/index: ${colors.bold(err.stderr)}`.red,
+      );
       throw err;
     });
 
-  console.log(colors.bold(`▶️▶️ Moving production files to temporary dir at '${tempDir}' ...`));
+  console.log(
+    colors.bold(
+      `▶️▶️ Moving production files to temporary dir at '${tempDir}' ...`,
+    ),
+  );
   await moveFiles(`${parentDir}production`, tempDir)
     .then(() =>
-      console.log(colors.green(`✔ Temporary dir for production files at: ${colors.bold(`${tempDir}production\n`)}`)),
+      console.log(
+        colors.green(
+          `✔ Temporary dir for production files at: ${colors.bold(
+            `${tempDir}production\n`,
+          )}`,
+        ),
+      ),
     )
     .catch(async (err) => {
-      console.log(`❗️ Error setting up temporary production dir: ${colors.bold(err.stderr)}`.red);
-      console.log(`❗️ Attempted to create dir at: ${colors.bold(`${tempDir}production\n`)}`.red);
+      console.log(
+        `❗️ Error setting up temporary production dir: ${colors.bold(
+          err.stderr,
+        )}`.red,
+      );
+      console.log(
+        `❗️ Attempted to create dir at: ${colors.bold(
+          `${tempDir}production\n`,
+        )}`.red,
+      );
       if (err.stderr.includes('Directory not empty')) {
         await handleTempDirNotEmpty('production', err);
       } else {
@@ -176,15 +231,28 @@ const createCleanOrphanBranch = async () => {
   await cleanGitWorkingTree()
     .then(() => console.log(`✔ Git working tree clean\n`.green))
     .catch((err) => {
-      console.log(`❗️ Error cleaning git working tree: ${colors.bold(err.stderr)}`.red);
+      console.log(
+        `❗️ Error cleaning git working tree: ${colors.bold(err.stderr)}`.red,
+      );
       throw err;
     });
 
-  console.log(colors.bold(`▶️▶️ Moving production files back to root folder at '${parentDir}' ...`));
+  console.log(
+    colors.bold(
+      `▶️▶️ Moving production files back to root folder at '${parentDir}' ...`,
+    ),
+  );
   await moveFiles(`${tempDir}production/*`, parentDir)
-    .then(() => console.log(colors.green(`✔ Production files added back to root folder.\n`)))
+    .then(() =>
+      console.log(
+        colors.green(`✔ Production files added back to root folder.\n`),
+      ),
+    )
     .catch(async (err) => {
-      console.log(`❗️ Error moving files back to root folder: ${colors.bold(err.stderr)}`.red);
+      console.log(
+        `❗️ Error moving files back to root folder: ${colors.bold(err.stderr)}`
+          .red,
+      );
       throw err;
     });
 
@@ -210,7 +278,9 @@ const getRemoteUrl = async () => {
 };
 
 const gitAddSubmodule = async (name: string) => {
-  return await execute(`git submodule add -b ${name} ${await getRemoteUrl()} ${name}`);
+  return await execute(
+    `git submodule add -b ${name} ${await getRemoteUrl()} ${name}`,
+  );
 };
 
 const gitPush = async () => {
@@ -227,7 +297,9 @@ const createSubmodule = async (name: string) => {
       console.log(`✔ New ${name} submodule added to remote.\n`.green);
     })
     .catch((err) => {
-      console.log(`❗️ Error creating submodule: ${colors.bold(err.stderr)}`.red);
+      console.log(
+        `❗️ Error creating submodule: ${colors.bold(err.stderr)}`.red,
+      );
       throw err;
     });
 };
