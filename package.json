@@ -1,0 +1,50 @@
+{
+  "name": "node-ts",
+  "version": "0.0.2",
+  "description": "Template project using Node.js + TypeScript",
+  "main": "./src/server.ts",
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "start": "npm run build && node dist/server.js",
+    "prod": "node server.js",
+    "build_prod": "tsc -p . && ts-node util/prod-env.ts production && npx prettier --write ./production/",
+    "build_webpacked_prod": "npm run build_prod && webpack -p",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magluf/node-ts.git"
+  },
+  "keywords": [
+    "nodejs",
+    "node",
+    "javascript",
+    "js",
+    "typescript"
+  ],
+  "author": "Sergio Magluf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/magluf/node-ts/issues"
+  },
+  "homepage": "https://github.com/magluf/node-ts#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.27"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/mongodb": "^3.5.25",
+    "@types/mongoose": "^5.7.34",
+    "@types/node": "^14.0.27",
+    "colors": "^1.4.0",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
+    "tsc": "^1.20150623.0",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-node-externals": "^2.5.0"
+  }
+}
