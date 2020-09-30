@@ -28,6 +28,17 @@ class UserService {
     }
   }
 
+  static async getUserByEmail(email) {
+    try {
+      const user = await database.User.findOne({
+        where: { email: String(email) },
+      });
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async updateUser(id, updatedUser) {
     try {
       const userToUpdate = await database.User.findOne({

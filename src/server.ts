@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.routes';
-import { correctPassword } from './controllers/auth.controller';
+import authRoutes from './routes/auth.routes';
 
 dotenv.config();
 
@@ -11,11 +11,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/auth', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 
 app.all('*', (req: Request, res: Response) => {
-  res.status(404).send({ message: `Endpoint ${req.originalUrl} not found.` });
+  res
+    .status(404)
+    .send({ message: `Endpoint ${req.method} ${req.originalUrl} not found.` });
 });
 
 app.listen(PORT, () => {
