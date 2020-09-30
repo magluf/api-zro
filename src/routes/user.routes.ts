@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { protect } from '../controllers/auth.controller';
 import UserController from '../controllers/user.controller';
 
 const router = Router();
@@ -6,7 +7,7 @@ const router = Router();
 router
   .route('/')
   .post(UserController.createUser)
-  .get(UserController.getAllUsers);
+  .get(protect, UserController.getAllUsers);
 
 router
   .route('/:id')
