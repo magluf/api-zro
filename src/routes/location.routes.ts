@@ -8,10 +8,12 @@ router.route('/').post(protect, LocationController.createLocation);
 
 router.route('/all/:type').get(protect, LocationController.getAllLocations);
 
-router
-  .route('/:id')
-  .get(LocationController.getLocation)
-  .put(LocationController.updatedLocation)
-  .delete(LocationController.deleteLocation);
+// Routes below are not in the scope of the challenge, but have been implemented.
+
+// router
+//   .route('/:id')
+//   .get(LocationController.getLocation)
+//   .put(LocationController.updatedLocation)
+//   .delete(LocationController.deleteLocation);
 
 export default router;
