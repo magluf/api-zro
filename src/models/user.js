@@ -1,5 +1,5 @@
 import { Model } from 'sequelize';
-import crypto from 'crypto';
+import { encryptPassword, generateSalt } from '../utils/encrypt';
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
+        allowNull: false,
         get() {
           return () => this.getDataValue('password');
         },
@@ -36,18 +37,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
     },
   );
-
-  const generateSalt = () => {
-    return crypto.randomBytes(16).toString('base64');
-  };
-
-  const encryptPassword = (plainText, salt) => {
-    return crypto
-      .createHash('RSA-SHA256')
-      .update(plainText)
-      .update(salt)
-      .digest('hex');
-  };
 
   const setSaltAndPassword = (user) => {
     if (user.changed('password')) {
@@ -69,13 +58,6 @@ module.exports = (sequelize, DataTypes) => {
         newSalt,
       );
     }
-  };
-
-  const correctPassword = (enteredPassword) => {
-    return (
-      encryptPassword(enteredPassword, 'NYEEuXjXLXyC2JHCUuoIJg==') ===
-      '509de533d24447c67c2dfe421813ac4e39504ee98add94ee189c385a6be28ef7'
-    );
   };
 
   User.beforeCreate(setSaltAndPassword);

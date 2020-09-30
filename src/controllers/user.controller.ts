@@ -4,12 +4,15 @@ import Util from '../utils/utils';
 const util = new Util();
 
 class UserController {
-  static async createUser(req, res) {
+  static async createUser(req: any, res: any) {
     if (!req.body.email || !req.body.password) {
       util.setError(400, 'Incomplete info.');
       return util.send(res);
     }
-    const newUser = req.body;
+    const newUser = {
+      email: req.body.email,
+      password: req.body.password,
+    };
     try {
       const createdUser = await UserService.createUser(newUser);
       util.setSuccess(201, 'User Added!', createdUser);
@@ -20,7 +23,7 @@ class UserController {
     }
   }
 
-  static async getUser(req, res) {
+  static async getUser(req: any, res: any) {
     const { id } = req.params;
 
     if (!Number(id)) {
@@ -43,7 +46,7 @@ class UserController {
     }
   }
 
-  static async getAllUsers(req, res) {
+  static async getAllUsers(req: any, res: any) {
     try {
       const allUsers = await UserService.getAllUsers();
       if (allUsers.length > 0) {
@@ -58,7 +61,7 @@ class UserController {
     }
   }
 
-  static async updatedUser(req, res) {
+  static async updatedUser(req: any, res: any) {
     const newUser = req.body;
     const { id } = req.params;
     if (!Number(id)) {
@@ -80,7 +83,7 @@ class UserController {
     }
   }
 
-  static async deleteUser(req, res) {
+  static async deleteUser(req: any, res: any) {
     const { id } = req.params;
 
     if (!Number(id)) {
