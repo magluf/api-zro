@@ -10,10 +10,13 @@ module.exports = (sequelize, DataTypes) => {
 
   User.init(
     {
-      username: {
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          isEmail: true,
+        },
       },
       password: {
         type: DataTypes.STRING,
@@ -55,12 +58,24 @@ module.exports = (sequelize, DataTypes) => {
 
   const updateSaltAndPassword = (user) => {
     if (user.fields.includes('password')) {
-      user.attributes.salt = generateSalt();
+      user.fields.push('salt');
+      const newSalt = generateSalt();
+      user.attributes = {
+        ...user.attributes,
+        salt: newSalt,
+      };
       user.attributes.password = encryptPassword(
         user.attributes.password,
-        user.attributes.salt,
+        newSalt,
       );
     }
+  };
+
+  const correctPassword = (enteredPassword) => {
+    return (
+      encryptPassword(enteredPassword, 'NYEEuXjXLXyC2JHCUuoIJg==') ===
+      '509de533d24447c67c2dfe421813ac4e39504ee98add94ee189c385a6be28ef7'
+    );
   };
 
   User.beforeCreate(setSaltAndPassword);

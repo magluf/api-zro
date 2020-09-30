@@ -20,7 +20,7 @@ API criada para o desafio backend do Zro Bank.
 curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-                "username": "AAA",
+                "email": "test@test.test",
                 "password": "testesteste"
             }'
 ```
@@ -33,7 +33,7 @@ curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
     "message": "User Added!",
     "data": {
         "id": 1,
-        "username": "test",
+        "email": "test@test.test",
         "updatedAt": "2020-09-30T10:24:38.816Z",
         "createdAt": "2020-09-30T10:24:38.816Z"
     }
@@ -61,13 +61,13 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users'
     "data": [
         {
             "id": 1,
-            "username": "test",
+            "email": "test@test.test",
             "createdAt": "2020-09-29T20:52:15.704Z",
             "updatedAt": "2020-09-29T20:52:15.704Z"
         },
         {
             "id": 2,
-            "username": "test2",
+            "email": "test2@test.test",
             "createdAt": "2020-09-30T10:21:11.279Z",
             "updatedAt": "2020-09-30T10:21:11.279Z"
         }
@@ -95,7 +95,7 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users/:id'
     "message": "User found.",
     "data": {
         "id": 1,
-        "username": "test",
+        "email": "test@test.test",
         "createdAt": "2020-09-30T10:21:11.279Z",
         "updatedAt": "2020-09-30T10:21:11.279Z"
     }
