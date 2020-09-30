@@ -5,7 +5,7 @@ const util = new Util();
 
 class UserController {
   static async createUser(req, res) {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.email || !req.body.password) {
       util.setError(400, 'Incomplete info.');
       return util.send(res);
     }
