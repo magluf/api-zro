@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { promisify } from 'util';
 import UserService from '../services/user.service';
 import Util from '../utils/utils';
 import { encryptPassword } from '../utils/encrypt';
@@ -17,6 +18,35 @@ const jwtToken = (id: number) => {
   return jwt.sign({ id }, process.env.JWT_SECRET as string, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
+};
+
+export const protect = async (req: any, res: any, next: any) => {
+  const authorization: string = req.headers.authorization;
+  let token;
+  if (authorization && authorization.startsWith('Bearer')) {
+    token = authorization.split(' ')[1];
+  }
+
+  if (!token) {
+    util.setError(401, 'Please, log in to get access.');
+    return util.send(res);
+  }
+
+  try {
+    const decoded: any = await promisify(jwt.verify)(
+      token,
+      process.env.JWT_SECRET as string,
+    );
+    const user = await UserService.getUser(decoded.id);
+    if (!user) {
+      util.setError(401, 'Invalid credentials.');
+      return util.send(res);
+    }
+    next();
+  } catch (error) {
+    util.setError(401, error);
+    return util.send(res);
+  }
 };
 
 class AuthController {
