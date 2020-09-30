@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
+import locationRoutes from './routes/location.routes';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/locations', locationRoutes);
 
 const PORT = process.env.PORT || 3000;
 

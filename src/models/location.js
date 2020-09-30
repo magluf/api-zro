@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+import { Model } from 'sequelize';
+
 module.exports = (sequelize, DataTypes) => {
   class Location extends Model {
     static associate(models) {
@@ -8,20 +8,29 @@ module.exports = (sequelize, DataTypes) => {
   }
   Location.init(
     {
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       latitude: {
         type: DataTypes.FLOAT,
+        allowNull: false,
       },
       longitude: {
         type: DataTypes.FLOAT,
+        allowNull: false,
       },
       country: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       countryCode: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       city: {
         type: DataTypes.STRING,
@@ -41,5 +50,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Location',
     },
   );
+
   return Location;
 };
