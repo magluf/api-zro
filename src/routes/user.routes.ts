@@ -4,15 +4,15 @@ import UserController from '../controllers/user.controller';
 
 const router = Router();
 
-router
-  .route('/')
-  .post(UserController.createUser)
-  .get(protect, UserController.getAllUsers);
+router.route('/').post(UserController.createUser);
 
-router
-  .route('/:id')
-  .get(UserController.getUser)
-  .put(UserController.updatedUser)
-  .delete(UserController.deleteUser);
+// Routes below are not in the scope of the challenge, but have been implemented.
+// .get(protect, UserController.getAllUsers);
+
+// router
+//   .route('/:id')
+//   .get(UserController.getUser)
+//   .put(UserController.updatedUser)
+//   .delete(UserController.deleteUser);
 
 export default router;
