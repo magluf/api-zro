@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
           return () => this.getDataValue('password');
         },
       },
+      passwordChangedAt: {
+        type: DataTypes.BIGINT,
+      },
       salt: {
         type: DataTypes.STRING,
         get() {
@@ -48,10 +51,13 @@ module.exports = (sequelize, DataTypes) => {
   const updateSaltAndPassword = (user) => {
     if (user.fields.includes('password')) {
       user.fields.push('salt');
+      user.fields.push('passwordChangedAt');
       const newSalt = generateSalt();
+      const now = Date.now();
       user.attributes = {
         ...user.attributes,
         salt: newSalt,
+        passwordChangedAt: now,
       };
       user.attributes.password = encryptPassword(
         user.attributes.password,
