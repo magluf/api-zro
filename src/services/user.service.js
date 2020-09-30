@@ -37,7 +37,7 @@ class UserService {
       if (userToUpdate) {
         await database.User.update(updatedUser, { where: { id: Number(id) } });
 
-        return updateUser;
+        return updatedUser;
       }
       return null;
     } catch (error) {
