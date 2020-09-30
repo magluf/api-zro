@@ -20,6 +20,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      passwordChangedAt: {
+        type: Sequelize.BIGINT,
+      },
       salt: {
         type: Sequelize.STRING,
       },

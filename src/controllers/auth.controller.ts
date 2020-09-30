@@ -20,6 +20,13 @@ const jwtToken = (id: number) => {
   });
 };
 
+const checkForChangedPassword = (
+  jwtTimeStamp: number,
+  passwordChangedAt: number,
+) => {
+  return passwordChangedAt > jwtTimeStamp;
+};
+
 export const protect = async (req: any, res: any, next: any) => {
   const authorization: string = req.headers.authorization;
   let token;
@@ -37,11 +44,23 @@ export const protect = async (req: any, res: any, next: any) => {
       token,
       process.env.JWT_SECRET as string,
     );
+
     const user = await UserService.getUser(decoded.id);
+    let passwordChangedAt = user.dataValues.passwordChangedAt;
+    if (passwordChangedAt) {
+      passwordChangedAt = +passwordChangedAt.slice(0, -3);
+    }
+
     if (!user) {
       util.setError(401, 'Invalid credentials.');
       return util.send(res);
     }
+
+    if (checkForChangedPassword(decoded.iat, passwordChangedAt)) {
+      util.setError(401, 'Invalid credentials.');
+      return util.send(res);
+    }
+
     next();
   } catch (error) {
     util.setError(401, error);
