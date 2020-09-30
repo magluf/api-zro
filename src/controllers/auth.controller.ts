@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import UserService from '../services/user.service';
 import Util from '../utils/utils';
 import { encryptPassword } from '../utils/encrypt';
@@ -14,15 +15,33 @@ export const correctPassword = (
 
 class AuthController {
   static async login(req: any, res: any) {
-    if (!req.body.email || !req.body.password) {
+    const { email, password } = req.body;
+    if (!email || !password) {
       util.setError(400, 'Incomplete info.');
       return util.send(res);
     }
-    const newUser = req.body;
+
+    const token = 'asfasf';
     try {
-      const createdUser = await UserService.createUser(newUser);
-      util.setSuccess(201, 'User Added!', createdUser);
-      return util.send(res);
+      const user = await UserService.getUserByEmail(email);
+      if (!user) {
+        util.setError(404, 'User not found');
+        return util.send(res);
+      }
+
+      if (
+        correctPassword(
+          password,
+          user.dataValues.salt,
+          user.dataValues.password,
+        )
+      ) {
+        util.setSuccess(201, 'User logged in!', { token });
+        return util.send(res);
+      } else {
+        util.setError(401, 'Credentials invalid.');
+        return util.send(res);
+      }
     } catch (error) {
       util.setError(400, error);
       return util.send(res);
