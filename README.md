@@ -14,7 +14,7 @@ API criada para o desafio backend do Zro Bank.
 
 ### Request
 
-`POST /api/v1/users`
+`POST /api/v1/users { email, password }`
 
 ```bash
 curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \

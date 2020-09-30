@@ -1,4 +1,9 @@
 export default class Util {
+  statusCode: number | null;
+  type: string | null;
+  data: any;
+  message: string | null;
+
   constructor() {
     this.statusCode = null;
     this.type = null;
@@ -6,20 +11,24 @@ export default class Util {
     this.message = null;
   }
 
-  setSuccess(statusCode, message, data) {
+  setSuccess(
+    statusCode: number | null,
+    message: string | null,
+    data?: any | null,
+  ) {
     this.statusCode = statusCode;
     this.message = message;
     this.data = data;
     this.type = 'success';
   }
 
-  setError(statusCode, message) {
+  setError(statusCode: number | null, message: string | null) {
     this.statusCode = statusCode;
     this.message = message;
     this.type = 'error';
   }
 
-  send(res) {
+  send(res: any) {
     const result = {
       status: this.type,
       message: this.message,

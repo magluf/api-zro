@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.routes';
+import { correctPassword } from './controllers/auth.controller';
 
 dotenv.config();
 
@@ -13,8 +14,8 @@ app.use('/api/v1/users', userRoutes);
 
 const PORT = process.env.PORT || 3000;
 
-app.get('*', (req: Request, res: Response) => {
-  res.status(200).send({ message: 'Zro REST API.' });
+app.all('*', (req: Request, res: Response) => {
+  res.status(404).send({ message: `Endpoint ${req.originalUrl} not found.` });
 });
 
 app.listen(PORT, () => {
