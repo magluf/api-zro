@@ -143,3 +143,15 @@ curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/auth/login'
                 "password": "test"
             }'
 ```
+
+#### Response
+
+```JSON
+{
+    "status": "success",
+    "message": "User logged in!",
+    "data": {
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNjAxNDgyMTUwLCJleHAiOjE2MDE1Njg1NTB9.Z5y5P5O3EOF6oz0H6Rcu592yj5ik8vHpTL2Hm2Zc1Yg"
+    }
+}
+```
