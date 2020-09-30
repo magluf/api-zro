@@ -5,12 +5,18 @@ import { encryptPassword } from '../utils/encrypt';
 
 const util = new Util();
 
-export const correctPassword = (
+const correctPassword = (
   enteredPassword: string,
   salt: string,
   hashedPass: string,
 ) => {
   return encryptPassword(enteredPassword, salt) === hashedPass;
+};
+
+const jwtToken = (id: number) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET as string, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 };
 
 class AuthController {
@@ -21,7 +27,6 @@ class AuthController {
       return util.send(res);
     }
 
-    const token = 'asfasf';
     try {
       const user = await UserService.getUserByEmail(email);
       if (!user) {
@@ -36,6 +41,7 @@ class AuthController {
           user.dataValues.password,
         )
       ) {
+        const token = jwtToken(user.dataValues.id);
         util.setSuccess(201, 'User logged in!', { token });
         return util.send(res);
       } else {
