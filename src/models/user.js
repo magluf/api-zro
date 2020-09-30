@@ -53,8 +53,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+  const updateSaltAndPassword = (user) => {
+    if (user.fields.includes('password')) {
+      user.attributes.salt = generateSalt();
+      user.attributes.password = encryptPassword(
+        user.attributes.password,
+        user.attributes.salt,
+      );
+    }
+  };
+
   User.beforeCreate(setSaltAndPassword);
-  User.beforeUpdate(setSaltAndPassword);
+  User.beforeBulkUpdate(updateSaltAndPassword);
 
   return User;
 };

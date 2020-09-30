@@ -15,7 +15,7 @@ class UserController {
       util.setSuccess(201, 'User Added!', createdUser);
       return util.send(res);
     } catch (error) {
-      util.setError(400, error.parent.detail);
+      util.setError(400, error);
       return util.send(res);
     }
   }
@@ -70,6 +70,7 @@ class UserController {
       if (!updateUser) {
         util.setError(404, `Cannot find user with the id: ${id}`);
       } else {
+        delete updateUser.password;
         util.setSuccess(200, 'User updated', updateUser);
       }
       return util.send(res);

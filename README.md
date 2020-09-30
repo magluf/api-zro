@@ -1,107 +1,105 @@
-<p align="center">
-  <a href="" rel="noopener">
-</p>
+# api-zro
 
-<h1 align="center">node-ts</h1>
+API criada para o desafio backend do Zro Bank.
 
-<div align="center">
+### Heroku URL:
 
-[![Version](https://img.shields.io/github/package-json/v/magluf/node-ts/master)]()&nbsp;&nbsp;&nbsp;
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()&nbsp;&nbsp;&nbsp;
-[![Last Commit](https://img.shields.io/github/last-commit/magluf/node-ts/master)]()&nbsp;&nbsp;&nbsp;
-[![Commit Activity](https://img.shields.io/github/commit-activity/m/magluf/node-ts)]()&nbsp;&nbsp;&nbsp;
-
-</div>
+> https://api-zro.herokuapp.com
 
 ---
 
-<p align="center"> Template project for Node.js + Typescript APIs.
-    <br> 
-</p>
+## Endpoints:
 
-## 📝 Table of Contents
+## - _Create user_
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Deployment](#deployment)
-- [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
-<p align="center">
-  <a href="" rel="noopener">
-</p>
+### Request
 
-## 🧐 About <a name = "about"></a>
-
-This project was born out of learning hunger and to also implement a good starting point for Node.js apps with some other flavours in it (for now, just TypeScript and MongoDB.)
-
-## 🏁 Getting Started <a name = "getting_started"></a>
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-#### Node.js v12.x
+`POST /api/v1/users`
 
 ```bash
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-sudo apt install nodejs
+curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+                "username": "AAA",
+                "password": "testesteste"
+            }'
 ```
 
-### Running the app
+### Response
 
-#### Install project packages
+```JSON
+{
+    "status": "success",
+    "message": "User Added!",
+    "data": {
+        "id": 1,
+        "username": "test",
+        "updatedAt": "2020-09-30T10:24:38.816Z",
+        "createdAt": "2020-09-30T10:24:38.816Z"
+    }
+}
+```
+
+---
+
+## - _Get all users_
+
+### Request
+
+`GET /api/v1/users`
 
 ```bash
-npm i
+curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users'
 ```
 
-#### And repeat
+### Response
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+```JSON
+{
+    "status": "success",
+    "message": "Users retrieved.",
+    "data": [
+        {
+            "id": 1,
+            "username": "test",
+            "createdAt": "2020-09-29T20:52:15.704Z",
+            "updatedAt": "2020-09-29T20:52:15.704Z"
+        },
+        {
+            "id": 2,
+            "username": "test2",
+            "createdAt": "2020-09-30T10:21:11.279Z",
+            "updatedAt": "2020-09-30T10:21:11.279Z"
+        }
+    ]
+}
 ```
 
-## 🎈 Usage <a name="usage"></a>
+---
 
-Add notes about how to use the system.
+## - _Get user by ID._
 
-## 🚀 Deployment <a name = "deployment"></a>
+### Request
 
-Add additional notes about how to deploy this on a live system.
+`GET /api/v1/users/:id`
 
-## ⛏️ Built Using <a name = "built_using"></a>
+```bash
+curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users/:id'
+```
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [node.js](https://nodejs.org/en/) - Server Environment
-- [ts-node](https://github.com/TypeStrong/ts-node) - TypeScript execution and REPL for node.js
+### Response
 
-## ✍️ Authors <a name = "authors"></a>
+```JSON
+{
+    "status": "success",
+    "message": "User found.",
+    "data": {
+        "id": 1,
+        "username": "test",
+        "createdAt": "2020-09-30T10:21:11.279Z",
+        "updatedAt": "2020-09-30T10:21:11.279Z"
+    }
+}
+```
 
-- [@magluf](https://github.com/magluf) - Idea & Initial work
+---
