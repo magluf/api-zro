@@ -8,13 +8,13 @@ API criada para o desafio backend do Zro Bank.
 
 ---
 
-## _Endpoints:_
+# _Endpoints:_
 
 ## USER:
 
-## - _Create user_
+### _Create user_
 
-### Request
+#### Request
 
 `POST /api/v1/users { email, password }`
 
@@ -27,7 +27,7 @@ curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
             }'
 ```
 
-### Response
+#### Response
 
 ```JSON
 {
@@ -44,9 +44,9 @@ curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
 
 ---
 
-## - _Get all users_
+### - _Get all users_
 
-### Request
+#### Request
 
 `GET /api/v1/users`
 
@@ -54,7 +54,7 @@ curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
 curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users'
 ```
 
-### Response
+#### Response
 
 ```JSON
 {
@@ -79,9 +79,9 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users'
 
 ---
 
-## - _Get user by ID._
+### - _Get user by ID._
 
-### Request
+#### Request
 
 `GET /api/v1/users/:id`
 
@@ -89,7 +89,7 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users'
 curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users/:id'
 ```
 
-### Response
+#### Response
 
 ```JSON
 {
@@ -106,9 +106,9 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users/:id'
 
 ---
 
-## - _Delete user by ID._
+### - _Delete user by ID._
 
-### Request
+#### Request
 
 `DELETE /api/v1/users/:id`
 
@@ -116,7 +116,7 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users/:id'
 curl --location --request DELETE 'localhost:3000/api/v1/users/:id'
 ```
 
-### Response
+#### Response
 
 ```JSON
 {
@@ -129,9 +129,9 @@ curl --location --request DELETE 'localhost:3000/api/v1/users/:id'
 
 ## AUTH
 
-## - _Login_
+### - _Login_
 
-### Request
+#### Request
 
 `POST /api/v1/auth/login { email, password }`
 
