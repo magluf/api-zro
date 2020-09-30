@@ -8,7 +8,9 @@ API criada para o desafio backend do Zro Bank.
 
 ---
 
-## Endpoints:
+## _Endpoints:_
+
+## USER:
 
 ## - _Create user_
 
@@ -21,7 +23,7 @@ curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
 --header 'Content-Type: application/json' \
 --data-raw '{
                 "email": "test@test.test",
-                "password": "testesteste"
+                "password": "test"
             }'
 ```
 
@@ -103,3 +105,41 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/users/:id'
 ```
 
 ---
+
+## - _Delete user by ID._
+
+### Request
+
+`DELETE /api/v1/users/:id`
+
+```bash
+curl --location --request DELETE 'localhost:3000/api/v1/users/:id'
+```
+
+### Response
+
+```JSON
+{
+    "status": "success",
+    "message": "User deleted."
+}
+```
+
+---
+
+## AUTH
+
+## - _Login_
+
+### Request
+
+`POST /api/v1/auth/login { email, password }`
+
+```bash
+curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+                "email": "test@test.test",
+                "password": "test"
+            }'
+```
