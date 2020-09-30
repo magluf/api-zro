@@ -20,6 +20,15 @@ const jwtToken = (id: number) => {
   });
 };
 
+export const decodeJwt = (
+  token: string,
+): Promise<{ id: number; iat: number; exp: number }> => {
+  return promisify(jwt.verify)(
+    token,
+    process.env.JWT_SECRET as string,
+  ) as Promise<{ id: number; iat: number; exp: number }>;
+};
+
 const checkForChangedPassword = (
   jwtTimeStamp: number,
   passwordChangedAt: number,
@@ -40,10 +49,7 @@ export const protect = async (req: any, res: any, next: any) => {
   }
 
   try {
-    const decoded: any = await promisify(jwt.verify)(
-      token,
-      process.env.JWT_SECRET as string,
-    );
+    const decoded = await decodeJwt(token);
 
     const user = await UserService.getUser(decoded.id);
     let passwordChangedAt = user.dataValues.passwordChangedAt;
