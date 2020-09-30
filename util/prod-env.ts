@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-const dir = process.argv[2] || `production`;
+const dir = process.argv[2] || `dist`;
 
 const readStream = fs.createReadStream(`package.json`);
 const dotEnvReadStream = fs.createReadStream(`.env`);

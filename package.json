@@ -5,9 +5,11 @@
   "main": "./src/server.ts",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "start": "npm run build && node dist/server.js",
+    "start": "ts-node src/server.ts",
+    "start:compiled": "node dist/server.js",
+    "debug": "npm run build:prod && ndb start:compiled",
     "prod": "node server.js",
-    "build:prod": "tsc -p . && ts-node util/prod-env.ts production && npx prettier --write ./production/",
+    "build:prod": "rm -rf dist && tsc -p . && ts-node util/prod-env.ts dist && npx prettier --write ./dist/",
     "build:heroku": "rm -rf heroku-dist && tsc -p . --outDir heroku-dist && ts-node util/prod-env.ts heroku-dist && npx prettier --write ./heroku-dist/",
     "deploy:heroku": "npm run build:heroku && ts-node util/deploy-heroku.ts",
     "git:deploy_heroku": "git subtree push --prefix heroku-dist heroku master",
