@@ -25,6 +25,10 @@ API criada para o desafio backend do Zro Bank.
 
 > https://api-zro.herokuapp.com
 
+### Postman collection das rotas:
+
+> https://www.getpostman.com/collections/227fce696dae1e977d37
+
 ---
 
 # _Endpoints:_
