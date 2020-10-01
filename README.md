@@ -286,7 +286,7 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/locations/al
 
 ## RATINGS:
 
-### _Criar usuário_
+### _Criar rating para location_
 
 #### Request
 
