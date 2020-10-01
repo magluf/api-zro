@@ -352,7 +352,7 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/ratings/:loc
         {
             "id": 4,
             "locationId": 1,
-            "userId": 2,
+            "userId": 4,
             "comment": "Very good",
             "rating": 5,
             "createdAt": "2020-10-01T00:51:07.973Z",
