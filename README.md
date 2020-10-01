@@ -19,7 +19,7 @@ API criada para o desafio backend do Zro Bank.
 - Sem testes :(
 - A versão mais nova do Sequelize não está otimizada para o Typescript (tão quanto a lib _sequelize-typescript_), o que me forçou a usar JS puro para migrations, models e services.
 - Sem Dockerfile :(
-- Eu estava utilizando uma rotina local com subtree para o deploy para o Heroku e infelizmente não tive tempo de configurar um CI/CD no repo.
+- Eu estava utilizando uma rotina local (`npm run build:heroku && npm run deploy:heroku`) utilizando scripts próprios e com git subtree para o deploy para o Heroku e infelizmente não tive tempo de configurar um CI/CD no repo.
 
 ### Heroku URL:
 
