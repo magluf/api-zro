@@ -3,6 +3,7 @@ import geoip from 'geoip-lite';
 import LocationService from '../services/location.service';
 import Util from '../utils/utils';
 import { decodeJwt } from './auth.controller';
+import UserService from '../services/user.service';
 
 const geocoder = NodeGeocoder({
   provider: 'google',
@@ -120,6 +121,7 @@ class LocationController {
     const token: string = req.headers.authorization.split(' ')[1];
 
     const userId = (await decodeJwt(token)).id;
+
     if (!req.body.address || !req.body.name) {
       util.setError(400, 'Incomplete info.');
       return util.send(res);

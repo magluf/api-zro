@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 import locationRoutes from './routes/location.routes';
+import ratingRoutes from './routes/rating.routes';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/locations', locationRoutes);
+app.use('/api/v1/ratings', ratingRoutes);
 
 const PORT = process.env.PORT || 3000;
 
