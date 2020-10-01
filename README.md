@@ -116,7 +116,7 @@ curl --location --request POST 'https://api-zro.herokuapp.com/api/v1/users' \
             }'
 ```
 
-> Uma string com os dois parâmetros acima ('Dom Black recife boa viagem') será utilizada na API Geoposition do Google. Quando mais detalhes forem passados sobre o local (CEP, bairro, cidade, estado...), melhor será a chance de obter o lugar exato. O campo _name_ é utilizado para setar a coluna _name_ da tabela Locations do DB.
+> Uma string com os dois parâmetros acima ('Dom Black recife boa viagem') será utilizada na Geoposition API do Google. Quanto mais detalhes forem passados sobre o local (CEP, bairro, cidade, estado...), melhor será a chance de obter o lugar exato. O campo _name_ é utilizado para setar a coluna _name_ da tabela Locations do DB.
 
 #### Response
 
