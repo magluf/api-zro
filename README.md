@@ -2,7 +2,7 @@
 
 API criada para o desafio backend do Zro Bank.
 
-## Avalição sobre o desempenho desafio:
+## Avalição sobre o desempenho no desafio:
 
 ### PROS
 
