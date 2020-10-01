@@ -215,7 +215,7 @@ curl --location --request GET 'https://api-zro.herokuapp.com/api/v1/locations/al
 
 ### - _Listar locations ordenadas por distância_
 
-> Foi utilizada a lib _geoip-lite_ para estabelecer o IP utilizado na requisição para determinar a latitude e longitude utilizada para fazer a comparação de proximidade. Caso não seja possível estabelecer o IP, esse endpoint retorna a lista de locations ordenada por nome.
+> Foi utilizada a lib _geoip-lite_ para obter o IP da requisição para, então, determinar a latitude e longitude utilizadas na comparação de proximidade. Caso não seja possível estabelecer o IP, esse endpoint retorna a lista de locations ordenada por nome.
 
 #### Request
 
